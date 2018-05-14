@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+
+	<link href="https://fonts.googleapis.com/css?family=Lobster|Roboto+Slab" rel="stylesheet">
+
+  	<script type="text/javascript" src="{{ url_for('static', filename='jquery-3.2.0.min.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css')}}">
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap.min.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome.min.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+  	<script type="text/javascript" src="{{ url_for('static', filename='script.js')}}"></script>
+
+  	<link rel='stylesheet' href='https://cdn.rawgit.com/daneden/animate.css/v3.1.0/animate.min.css'>
+    <script src='https://cdn.rawgit.com/matthieua/WOW/1.0.1/dist/wow.min.js'></script>
+    <script>
+    new WOW().init();
+    </script>
+</head>
+<body>
+<div class="container-fluid fluid">
+
+	<!-- start header -->
+	<div class="container-fluid" id="header" >
+		<div class="row">
+			<div class="col-md-2 col-sm-2">
+			<!--  img-thumbnail -->
+				<img src="./static/logo2.png" class="img-responsive" alt="F5">
+
+			</div>
+			<div class="col-md-8 col-sm-8 text-center text">
+				<div class="wow bounceInLeft" data-wow-duration="2s"><h1>HỆ THỐNG NHẬN DIỆN MÓN ĂN</h1></div>
+				<!-- <div class="wow bounceInRight" data-wow-duration="2s"><h3>NHOM ...</h3></div> -->
+			</div>
+		</div>
+	</div>
+
+	<!-- end header -->
+
+	<!-- start choose image -->
+	<div class="text-center">
+		<form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+
+        <div class="col-sm-8 col-sm-offset-2 blog-text">
+                    <h2>Chọn món ăn cần nhận diện</h2>
+                </div>
+                <input  style ="margin: 0 auto; background: #5BBD50;
+                                            font-size: 1.4em;
+                                            font-weight: 700;
+                                            /*font-family: 'Roboto', cursive;*/
+                                            border-radius: 20px;
+                                            border: none;
+                                            outline: none;
+                                            padding: 0.3em 1.6em;
+                                            color: #fff;" id="file-picker" type="file" name="file" accept="image/*" multiple>
+                <div id="msg"></div>
+                <input type="submit"
+                       value="PREDICT"  id="predic" style="margin-top: 20px; margin-bottom: 30px; background: #5BBD50;
+                                            font-size: 1.4em;
+                                            font-weight: 700;
+                                            font-family: 'Roboto', cursive;
+                                            border-radius: 20px;
+                                            border: none;
+                                            outline: none;
+                                            padding: 0.3em 1.6em;
+                                            color: #fff;">
+
+        </form>
+	</div>
+
+
+
+	<div class="container-fluid" id="content" >
+		<div class="row">
+			<div class="col-sm-offset-2 col-md-4 col-sm-4 col-xs-12 col-md-6">
+                <h3>Tên món ăn: <span id="name-food">{{names}}</span> </h3>
+                
+				<img id="output" src="{{url_for('send_image', filename = image_name)}}" class="img-responsive img-thumbnail" alt="Food">
+			</div>
+
+
+			<div class="col-md-5 col-sm-5 col-xs-12 skill">
+                <h3>Kết quả:</h3>
+                {% for data in datas%}
+                <div class="col-sm-12 col col1 skillbar skillbar1 clearfix " data-percent="{{data['acc']}}%">
+                    <!-- <div class="skillbar-title" style="background: #d35400;"><span>Mon an 1</span></div> -->
+                    <div class="skillbar-title"><span>{{data['name']}}</span></div>
+                    <div class="skillbar-bar" style="background: #fc7700;"></div>
+                    <div class="skill-bar-percent"><strong>{{data['acc']}}</strong></div>
+                </div>
+                {% endfor %}
+            </div>
+		</div>
+	</div>
+	<!-- end image and content -->
+
+	<!-- ==== blog ==== -->
+    <div id="blog">
+        <div class="container">
+            <div class="row text-center clearfix">
+                <!-- HEAD TEXT -->
+                <div class="col-sm-8 col-sm-offset-2 blog-text">
+                    <h2>OUR TEAM</h2>
+                    <P>Follow your passion, success will come to you</P>
+                    <p>Believe in yourself and never give up</p>
+                </div>
+                <!-- images -->
+                <div class="row">
+                    <!-- single blog 1 -->
+                    <div class="col-sm-4 blog-div wow fadeInUp" data-wow-duration="2s">
+                        <div class="single-blog text-center">
+                            <img src="./static/Thang.jpg" alt="Thang">
+                            <h3>Nguyễn Đức Thắng</h3>
+
+                            <p>Full Stack Web Developer</p>
+                            <p>Code model and train data</p>
+							<p style="color : red ">NO GIRL FRIEND</p>
+                            <!-- <a href="#" class="btn read-more" data-toggle="modal" data-target="blog-detail-2">READ MORE</a> -->
+
+                            <div class="socials">
+                                <div class="fb"><a href="#"><i class="fa fa-facebook" ></i></a></div>
+                                <div class="tt"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                                <div class="gp"><a href="#"><i class="fa fa-google-plus"></i></a></div>
+                                <div class="db"><a href="#"><i class="fa fa-dribbble"></i></a></div>
+                                <div class="lk"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                            </div>
+                        </div>
+                        <!-- detail blog 1 -->
+                        <div class="modal fade" id="blog-detail-1" style="display: none"></div>
+                    </div>
+                    <!-- single blog 2 -->
+                    <div class="col-sm-4 blog-div wow fadeInUp" data-wow-duration="2s">
+                        <div class="single-blog text-center">
+                            <img src="./static/loi.jpg" alt="Thang">
+                            <h3>Lê Thành Lợi</h3>
+                      		<p>Full Stack Web Developer</p>
+                      		<p>Code model and train data</p>
+													<p style="color : red ">NO GIRL FRIEND</p>
+                            <div class="socials">
+                                <div class="fb"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                                <div class="tt"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                                <div class="gp"><a href="#"><i class="fa fa-google-plus"></i></a></div>
+                                <div class="db"><a href="#"><i class="fa fa-dribbble"></i></a></div>
+                                <div class="lk"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                            </div>
+                        </div>
+                        <!-- detail blog 2 -->
+                        <div class="modal fade" id="blog-detail-2" style="display: none"></div>
+                    </div>
+                    <!-- single blog 3 -->
+                    <div class="col-sm-4 blog-div wow fadeInUp" data-wow-duration="2s">
+                        <div class="single-blog text-center">
+                            <img src="./static/huy.jpg" alt="Huy">
+                            <h3>Trần Đình Huy</h3>
+                            <p>Full Stack Web Developer</p>
+                            <p>Data set and code predict file</p>
+							<p style="color : red ">NO GIRL FRIEND</p>
+                            <div class="socials">
+                                <div class="fb"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                                <div class="tt"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                                <div class="gp"><a href="#"><i class="fa fa-google-plus"></i></a></div>
+                                <div class="db"><a href="#"><i class="fa fa-dribbble"></i></a></div>
+                                <div class="lk"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                            </div>
+                        </div>
+                        <!-- detail blog 3 -->
+                        <div class="modal fade" id="blog-detail-3" style="display: none"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- single blog 4 -->
+                    <div class="col-sm-offset-2 col-sm-4 blog-div wow fadeInUp" data-wow-duration="2s">
+                        <div class="single-blog text-center">
+                            <img src="./static/hong2.png" alt="Hong">
+                            <h3>Tống Thị Hồng</h3>
+                            <p>Full Stack Web Developer</p>
+                            <p>Web developer in my team</p>
+														<p style="color : red ">NO BOY FRIEND</p>
+                            <div class="socials">
+                                <div class="fb"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                                <div class="tt"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                                <div class="gp"><a href="#"><i class="fa fa-google-plus"></i></a></div>
+                                <div class="db"><a href="#"><i class="fa fa-dribbble"></i></a></div>
+                                <div class="lk"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                            </div>
+                        </div>
+                        <!-- detail blog 4 -->
+                        <div class="modal fade" id="blog-detail-4" style="display: none"></div>
+                    </div>
+                    <!-- single blog 5 -->
+                    <div class="col-sm-4 blog-div wow fadeInUp" data-wow-duration="2s">
+                        <div class="single-blog text-center">
+                            <img src="./static/nga1.png" alt="Nga">
+                            <h3>Lê Thị Nga</h3>
+
+                            <p>Full Stack Web Developer</p>
+                            <p>Web developer in my team</p>
+														<p style="color : red ">NO BOY FRIEND</p>
+                            <div class="socials">
+                                <div class="fb"><a href="#"><i class="fa fa-facebook"></i></a></div>
+                                <div class="tt"><a href="#"><i class="fa fa-twitter"></i></a></div>
+                                <div class="gp"><a href="#"><i class="fa fa-google-plus"></i></a></div>
+                                <div class="db"><a href="#"><i class="fa fa-dribbble"></i></a></div>
+                                <div class="lk"><a href="#"><i class="fa fa-linkedin"></i></a></div>
+                            </div>
+                        </div>
+                        <!-- detail blog 5 -->
+                        <div class="modal fade" id="blog-detail-5" style="display: none"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- ==== end blog ==== -->
+
+  <div id="footer" class="text-center" >
+        <marquee behavior="alternate" scrollamount="3" >
+            <p>Copyright &copy 2017 - <a href="#"><span style="color: #fc7700">F5-NhomHin</span></a> | All Rights Reserved</p>
+        </marquee>
+        <!-- ==== end footer ==== -->
+    </div>
+
+</div>
+
+
+
+</body>
+
+</html>
